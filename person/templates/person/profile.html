@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <h1>
+        {{ person.username }}
+        {% if person.first_name or person.last_name %}
+            {{ person.first_name }} {{ person.last_name }}
+        {% endif %}
+    </h1>
+    <p>{{ person.role }}</p>
+    <p>
+        На счету {{ person.money }}
+        <a>Пополнить</a>
+    </p>
+    <p>
+        Рейтинг {{ person.rating }}
+        (решил <a href="{{ person.get_closed_solutions_url }}">{{ person.solutions_closed }}</a> задач,
+        в процессе <a href="{{ person.get_closed_solutions_url }}">{{ person.solutions_opened }}</a> задач)
+    </p>
+    <p>
+        {% if person.puzzles_author %}
+            Предложил <a href="{{ person.get_puzzles_url }}">{{ person.puzzles_author }}</a> задач
+        {% endif %}
+        (<a href="{% url 'add_puzzle' %}">предложить задачу</a>)
+    </p>
+    {% if person.role.slug == 'moderator' %}
+        <p>Веду обуждение по <a href="{{ person.get_opened_reviews_url }}">{{ person.reviews_opened }}</a> задачам</p>
+        <p>Проверил <a href="{{ person.get_closed_reviews_url }}">{{ person.reviews_closed }}</a> задач</p>
+    {% endif %}
+    <p>Вклад <a>{{ person.contribution }}</a></p>
+    <h1>О себе</h1>
+    <p>{{ person.about }}</p>
+
+
+{% endblock %}

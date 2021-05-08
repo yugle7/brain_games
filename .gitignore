@@ -3,3 +3,5 @@ secrets.json
 cache
 venv
 .idea
+*/migrations
+__pycache__

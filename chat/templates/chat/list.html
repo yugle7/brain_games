@@ -1,0 +1,37 @@
+<div>
+    <ul class="person-comment-list">
+        {% for comment in person.comment_set.all %}
+            <li id={{ comment.pk }}>
+                {% if comment.reply %}
+                    <div class="comment-reply">
+                        <a href="#{{ comment.reply.id }}">{{ comment.reply.author.username }}</a>
+                        {{ comment.reply.text|truncatewords:10 }}
+                    </div>
+                {% endif %}
+                <div class="author">
+                    <a href="{{ comment.author.get_absolute_url }}">{{ comment.author }}</a>
+                    {{ comment.time_create|date:"d M Y" }}
+                </div>
+                <div class="text">
+                    {{ comment.text }}
+                </div>
+                <div>
+                    <a class="like {{ comment.is_liked }}" href="{{ comment.get_like_url }}">
+                        Понравился
+                    </a>
+                    <a class="hide {{ comment.is_hidden }}" href="{{ comment.get_hide_url }}">
+                        Скрыть
+                    </a>
+                    <a class="reply">Ответить</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" id="add-comment-form">
+        {% csrf_token %}
+        <p><label class="form-label" for="{{ form.text.id_for_label }}"></label>{{ form.text }}</p>
+        <button form="add-comment-form" type="submit">Отправить</button>
+    </form>
+
+</div>

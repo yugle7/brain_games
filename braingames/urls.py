@@ -13,17 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
 from braingames import settings
+from discuss.views import *
 from main.views import *
+from person.views import *
+from poll.views import *
+from chat.views import *
 from puzzle.views import *
+from solution.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('person/', include('person.urls')),
     path('puzzle/', include('puzzle.urls')),
+    path('solution/', include('solution.urls')),
+    path('discuss/', include('discuss.urls')),
+    path('poll/', include('poll.urls')),
+    path('chat/', include('chat.urls')),
     path('', include('main.urls')),
 ]
 
