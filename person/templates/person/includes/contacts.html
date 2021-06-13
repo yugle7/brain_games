@@ -1,0 +1,9 @@
+<ul class="main">
+    {% if person.city %}
+        <li>person.city.full</li>
+    {% endif %}
+    <li>person.email</li>
+    {% for link in person.links %}
+        <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+    {% endfor %}
+</ul>

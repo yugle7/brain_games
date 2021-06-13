@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+from comment.models import Comment
 from person.models import Person
 from puzzle.models import Puzzle, Category
 from utils import *
@@ -68,3 +69,16 @@ class Filter(models.Model):
     class Meta:
         verbose_name = 'Фильтр'
         verbose_name_plural = 'Фильтры'
+
+
+class Talk(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.PROTECT, verbose_name="Комментарий")
+    solution = models.ForeignKey(Solution, on_delete=models.PROTECT, verbose_name="Решение")
+
+    def __str__(self):
+        return f'{self.comment.author} -> {self.solution}'
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ['id']

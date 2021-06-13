@@ -5,20 +5,20 @@
 {% endblock down %}
 
 {% block title %}
-    {# профиль #}
+    {# задача #}
 {% endblock title %}
 
 {% block up %}
-    {# значок выхода из профиля, если я в своем #}
     {# значок профиля, если я в своем #}
     {# значок входа, если я не залогинен #}
 {% endblock up %}
 
 {% block content %}
-    {% include 'person/includes/name.html' %}
-    {% include 'person/includes/contacts.html' %}
-    {% include 'person/includes/dates.html' %}
-    {% include 'person/includes/progress.html' %}
-    {% include 'person/includes/rewards.html' %}
+    {% include 'puzzle/includes/like.html' %}
+    {% include 'puzzle/includes/puzzle.html' %}
+    {% include 'puzzle/includes/solution.html' %}
+
+    {% include 'comment/includes/list.html' %}
+    {% include 'comment/includes/send.html' %}
 {% endblock content %}
 

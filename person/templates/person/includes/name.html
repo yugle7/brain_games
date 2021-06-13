@@ -1,0 +1,6 @@
+<h2>{% include 'includes/person/username.html' %}</h2>
+{% include 'includes/person/role.html' %}
+
+{% if person.first_name or person.last_name %}
+    <span class="main">{{ person.first_name }} {{ person.last_name }}</span>
+{% endif %}

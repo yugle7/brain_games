@@ -1,7 +1,20 @@
-{% for category in categories %}
-	{% if category.pk == selected_category %}
-		<li class="selected">{{ category.name }}</li>
-	{% else %}
-		<li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
-	{% endif %}
-{% endfor %}
+{% extends 'main/base.html' %}
+
+{% block down %}
+    {# значок назад #}
+{% endblock down %}
+
+{% block title %}
+    {# задачи #}
+{% endblock title %}
+
+{% block up %}
+    {# значок профиля, если я в своем #}
+    {# значок входа, если я не залогинен #}
+{% endblock up %}
+
+{% block content %}
+    {% include 'puzzle/includes/filter.html' %}
+    {% include 'puzzle/includes/list.html' %}
+{% endblock content %}
+

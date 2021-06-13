@@ -1,19 +1,21 @@
 {% extends 'main/base.html' %}
 
+{% block down %}
+    {# значок назад #}
+{% endblock down %}
+
+{% block title %}
+    {# профиль #}
+{% endblock title %}
+
+{% block up %}
+    {# значок выхода из профиля, если я в своем #}
+    {# значок профиля, если я в своем #}
+    {# значок входа, если я не залогинен #}
+{% endblock up %}
+
 {% block content %}
-    <ul class="person-list">
-        {% for person in persons %}
-            <li>
-                <div class="person-username">
-                    <a href="{{ person.get_absolute_url }}">{{ person.username }}</a>
-                </div>
-                <div class="person-role">
-                    {{ person.role }}
-                </div>
-                <div class="person-rating">
-                    {{ person.rating }}
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    {% include 'person/includes/filter.html' %}
+    {% include 'person/includes/list.html' %}
 {% endblock content %}
+

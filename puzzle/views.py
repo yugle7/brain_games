@@ -34,7 +34,7 @@ class PuzzleList(ListView):
 
 class AddPuzzle(LoginRequiredMixin, CreateView):
     form_class = AddPuzzleForm
-    template_name = 'puzzle/add.html'
+    template_name = 'puzzle/includes/add.html'
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('home')
     raise_exception = True

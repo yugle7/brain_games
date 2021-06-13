@@ -1,0 +1,11 @@
+<ul id="activity">
+    {% for activity in activities %}
+        <li>{% include 'person/includes/link.html' with person=activity.author %} ->
+            {{ activity.title }}
+            {% include 'includes/age.html' with date=activity.date %}
+            <p><a href="{{ activity.link }}">
+                {{ activity.text }}
+            </a></p>
+        </li>
+    {% endfor %}
+</ul>

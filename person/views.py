@@ -6,7 +6,7 @@ from main.forms import *
 
 class PersonList(ListView):
     model = Person
-    template_name = 'person/list.html'
+    template_name = 'person/includes/list.html'
     context_object_name = 'persons'
 
 

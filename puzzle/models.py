@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+from comment.models import Comment
 from const import *
 from person.models import Person
 from utils import *
@@ -102,23 +103,14 @@ class Filter(models.Model):
         ordering = ['id']
 
 
-class Comment(models.Model):
-    kind = models.SmallIntegerField(null=True, choices=COMMENT_KIND)
-    text = models.TextField(blank=True, verbose_name="Сообщение")
+class Talk(models.Model):
+    is_public = models.BooleanField(default=True, verbose_name="Публичные")
 
-    author = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='puzzle_comments', verbose_name="Автор")
     puzzle = models.ForeignKey(Puzzle, on_delete=models.PROTECT, verbose_name="Задача")
-
-    reply = models.ForeignKey(
-        'Comment', blank=True, null=True, on_delete=models.PROTECT, related_name='answer',
-        verbose_name="Ответ на сообщение"
-    )
-
-    create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
-    edit_time = models.DateTimeField(auto_now=True, verbose_name="Время правки")
+    comment = models.ForeignKey(Comment, on_delete=models.PROTECT, verbose_name="Комментарий")
 
     def __str__(self):
-        return f'{self.author} -> {self.puzzle}'
+        return f'{self.comment.author} -> {self.puzzle}'
 
     class Meta:
         verbose_name = 'Комментарий'

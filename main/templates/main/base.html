@@ -5,13 +5,57 @@
     <title>{% block title %}Brain Games{% endblock title %}</title>
     <link type="text/css" href="{% static 'main/css/styles.css' %}" rel="stylesheet"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="shortcut icon" href="{% static 'main/images/main.ico' %}" type="image/x-icon"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'main/images/main.png' %}" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="content">
-    {% block content %}
-    {% endblock content %}
-</div>
+<ul>
+    <li class="left">
+        {% block left %}
+            {# оглавление #}
+        {% endblock left %}
+    </li>
+    <li class="center">
+        <ul>
+            <li class="header">{% block header %}
+                {# поле поиска или навигация #}
+                <ul class="header">
+                    <li>
+                        {% block down %}
+                            {# значок меню или вернуться #}
+                        {% endblock down %}
+                    </li>
+                    <li>
+                        {% block title %}
+                            {# название страницы с возможным поиском по нажатию #}
+                        {% endblock title %}
+                    </li>
+                    <li>
+                        {% block up %}
+                            {# значок профиля или регистрации или логина #}
+                        {% endblock up %}
+                    </li>
+                </ul>
+            {% endblock header %}
+            </li>
+            <li class="content">
+                {% block content %}
+                    {# страница сайта #}
+                {% endblock content %}
+            </li>
+            <li class="footer">
+                {% block footer %}
+                    {# поле отправки сообщений #}
+                {% endblock footer %}
+            </li>
+        </ul>
+    </li>
+    <li class="right">
+        {% block right %}
+            {# активность на сайте #}
+        {% endblock right %}
+    </li>
+</ul>
 </body>
 </html>

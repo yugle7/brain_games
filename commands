@@ -9,6 +9,8 @@ python manage.py runserver 8000
 python manage.py shell
 python manage.py test puzzle.tests
 
+pip freeze > requirements.txt
+
 git init
 git status
 git add .

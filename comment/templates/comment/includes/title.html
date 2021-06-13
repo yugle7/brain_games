@@ -1,0 +1,8 @@
+<ul>
+    <li>
+        {% include 'person/includes/username.html' with person=comment.author %}
+    </li>
+    <li class="info">
+        {{ comment.create_time }}
+    </li>
+</ul>

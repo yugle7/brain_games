@@ -1,0 +1,7 @@
+<form action="{% url 'puzzle_solve' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input class="text">
+    <button type="submit">{{ solution.status }}</button>
+</form>
+
