@@ -86,7 +86,18 @@ class Person(AbstractUser):
 
 
 class Filter(models.Model):
-    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY['person'], verbose_name="Сортировать по")
+    SORT_BY = (
+        (1, 'rating'),
+        (2, 'contribution'),
+        (3, 'money'),
+        (4, 'last_visit_time'),
+        (5, 'date_joined'),
+        (6, 'puzzles_author'),
+        (7, 'puzzles_author'),
+        (8, 'reviews_opened'),
+        (9, 'reviews_closed'),
+    ),
+    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY, verbose_name="Сортировать по")
     sort_as = models.BooleanField(default=True, verbose_name="Сортировать как")
 
     person = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Пользователь")

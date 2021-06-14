@@ -91,7 +91,11 @@ class Vote(models.Model):
 
 
 class Filter(models.Model):
-    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY['poll'], verbose_name="Сортировать по")
+    SORT_BY = (
+        (1, 'persons_count'),
+        (2, 'time_update'),
+    )
+    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY, verbose_name="Сортировать по")
     sort_as = models.BooleanField(default=True, verbose_name="Сортировать как")
 
     author = models.ForeignKey(

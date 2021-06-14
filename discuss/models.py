@@ -66,7 +66,11 @@ class Discuss(models.Model):
 
 
 class Filter(models.Model):
-    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY['discuss'], verbose_name="Сортировать по")
+    SORT_BY = (
+        (1, 'comments_count'),
+        (2, 'update_time')
+    )
+    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY, verbose_name="Сортировать по")
     sort_as = models.BooleanField(null=True, blank=True, verbose_name="Сортировать как")
 
     author = models.ForeignKey(

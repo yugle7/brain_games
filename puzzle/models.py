@@ -73,7 +73,14 @@ class Puzzle(models.Model):
 
 
 class Filter(models.Model):
-    sort_by = models.SmallIntegerField(default=1, choices=SORT_BY['puzzle'], verbose_name="Сортировать по")
+    SORT_BY = (
+        (1, 'weight'),
+        (2, 'create_time'),
+        (3, 'solved_count'),
+        (4, 'interest'),
+        (5, 'complexity'),
+    )
+    sort_by = models.SmallIntegerField(default=1, choices=SORT_BY, verbose_name="Сортировать по")
     sort_as = models.BooleanField(default=True, verbose_name="Сортировать как")
 
     author = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='puzzle_filter', verbose_name="Автор")
