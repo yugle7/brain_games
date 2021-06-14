@@ -2,10 +2,12 @@ from django import forms
 
 from .models import *
 
-class AddCommentForm(forms.ModelForm):
+
+class SolutionCreateForm(forms.ModelForm):
     class Meta:
-        model = Comment
+        model = Puzzle
         fields = ['text']
         widgets = {
             'text': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
         }
+

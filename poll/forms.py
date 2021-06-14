@@ -16,6 +16,6 @@ class AddPollForm(forms.ModelForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         if len(title) > MAX_TITLE_LEN:
-            raise ValidationError(f'Название не более {MAX_TITLE_LEN} символов')
+            raise ValidationError(f'Название должно быть не более {MAX_TITLE_LEN} символов')
 
         return title

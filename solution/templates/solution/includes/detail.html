@@ -1,0 +1,6 @@
+<form action="{% url 'solution-create' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input class="text">
+    <button type="submit">Сохранить черновик</button>
+</form>

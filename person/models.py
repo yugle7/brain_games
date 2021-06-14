@@ -35,15 +35,14 @@ class Person(AbstractUser):
     search = models.TextField(blank=True, verbose_name="Поиск")
 
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
+    contribution = models.IntegerField(default=0, verbose_name='Вклад')
     money = models.IntegerField(default=0, verbose_name='Счет')
 
     solutions_opened = models.IntegerField(default=0, verbose_name='Решает задач')
     solutions_closed = models.IntegerField(default=0, verbose_name='Решено задач')
-    puzzles_author = models.IntegerField(default=0, verbose_name='Предложил задач')
+    puzzles_offered = models.IntegerField(default=0, verbose_name='Предложил задач')
     reviews_opened = models.IntegerField(default=0, verbose_name='Задач проверяет')
     reviews_closed = models.IntegerField(default=0, verbose_name='Задач проверил')
-
-    contribution = models.IntegerField(default=0, verbose_name='Вклад')
 
     def __str__(self):
         return self.username
@@ -102,3 +101,17 @@ class Filter(models.Model):
         verbose_name_plural = 'Фильтры'
         ordering = ['id']
 
+
+class Talk(models.Model):
+    is_public = models.BooleanField(default=True, verbose_name="Публичные")
+
+    person = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Человек")
+    comment = models.ForeignKey('Comment', on_delete=models.PROTECT, verbose_name="Комментарий")
+
+    def __str__(self):
+        return f'{self.comment.author} -> {self.person}'
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ['id']

@@ -1,29 +1,52 @@
 from django.test import TestCase
 
-from person.tests import create_test_person
 from .models import *
 
 
-def create_test_topic():
-    return Topic.objects.create(slug='topic', title='Тема')
+class Data(BaseData):
+    app = 'discuss'
 
+    topics = []
+    discusses = []
+    talks = []
 
-def create_test_discuss():
-    person = create_test_person()
-    topic = create_test_topic()
-    return Discuss.objects.create(
-        slug='discuss',
-        title='Обсуждение',
-        text='Описание',
-        topic=topic,
-        author=person
-    )
+    def __init__(self):
+        assert Person.objects.exists()
+        self.persons = Person.objects.all()
+
+        assert Comment.objects.exists()
+        self.comments = Comment.objects.all()
+
+        Talk.objects.all().delete()
+        Discuss.objects.all().delete()
+        Topic.objects.all().delete()
+
+        self.create_topics()
+        self.create_discusses()
+        self.create_talks()
+
+    def create_topics(self):
+        for slug, title in self.get_data('topics'):
+            self.topics.append(
+                Topic.objects.create(slug=slug, title=title)
+            )
+
+    def create_discusses(self):
+        for slug, title in self.get_data('discusses'):
+            self.discusses.append(
+                Discuss.objects.create(
+                    slug=slug,
+                    title=title,
+                    topic=self.get_rand(self.topics),
+                    author=self.get_rand(self.persons)
+                )
+            )
 
 
 class TopicTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        create_test_topic()
+        Data()
 
     def test_get_absolute_url(self):
         topic = Topic.objects.first()
@@ -33,7 +56,7 @@ class TopicTest(TestCase):
 class DiscussTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        create_test_discuss()
+        Data()
 
     def test_get_absolute_url(self):
         discuss = Discuss.objects.first()

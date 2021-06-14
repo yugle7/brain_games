@@ -6,9 +6,9 @@ from puzzle.forms import *
 from puzzle.models import *
 
 
-class ShowPuzzle(DetailView):
+class PuzzleDetail(DetailView):
     model = Puzzle
-    template_name = 'puzzle/show.html'
+    template_name = 'puzzle/detail.html'
     context_object_name = 'puzzle'
 
 
@@ -32,9 +32,8 @@ class PuzzleList(ListView):
         return puzzles
 
 
-class AddPuzzle(LoginRequiredMixin, CreateView):
-    form_class = AddPuzzleForm
-    template_name = 'puzzle/includes/add.html'
-    success_url = reverse_lazy('home')
-    login_url = reverse_lazy('home')
+class PuzzleCreate(LoginRequiredMixin, CreateView):
+    form_class = PuzzleCreateForm
+    template_name = 'puzzle/create.html'
+    success_url = reverse_lazy('puzzle-detail')
     raise_exception = True

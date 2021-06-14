@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from .models import *
 
 
-class AddPuzzleForm(forms.ModelForm):
+class PuzzleCreateForm(forms.ModelForm):
     class Meta:
         model = Puzzle
         fields = ['title', 'slug', 'text']
@@ -21,7 +21,7 @@ class AddPuzzleForm(forms.ModelForm):
         return title
 
 
-class GetPuzzlesForm(forms.ModelForm):
+class FilterForm(forms.ModelForm):
     class Meta:
         model = Filter
         fields = ['query', 'category', 'is_solved', 'author', 'is_published', 'sort_by', 'sort_as']

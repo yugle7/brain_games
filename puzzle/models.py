@@ -41,19 +41,6 @@ class Puzzle(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="Категория")
     weight = models.SmallIntegerField(default=0, verbose_name="Вес")
 
-    looked_count = models.IntegerField(default=0, verbose_name='Видело')
-    answered_count = models.IntegerField(default=0, verbose_name='Ответило')
-    solved_count = models.IntegerField(default=0, verbose_name='Решило')
-
-    one_try = models.IntegerField(default=0, verbose_name='С первой попытки')
-    two_tries = models.IntegerField(default=0, verbose_name='За две попытки')
-    three_tries = models.IntegerField(default=0, verbose_name='За три попытки')
-    many_tries = models.IntegerField(default=0, verbose_name='Много попыток')
-
-    likes_count = models.IntegerField(default=0, verbose_name='Понраилась')
-    dislikes_count = models.IntegerField(default=0, verbose_name='Не понравилась')
-    stars_count = models.IntegerField(default=0, verbose_name='В избранном')
-
     interest = models.FloatField(default=0, verbose_name='Интерес')
     complexity = models.FloatField(default=0, verbose_name='Сложность')
 

@@ -8,47 +8,32 @@ from utils import *
 
 
 class Solution(models.Model):
-    draft = models.TextField(blank=True, verbose_name="Черновик")
-    prev = models.TextField(blank=True, verbose_name="Старое решение")
-    text = models.TextField(blank=True, verbose_name="Решение")
-    review = models.TextField(blank=True, verbose_name="Отзыв проверяющего")
-
     puzzle = models.ForeignKey(Puzzle, on_delete=models.PROTECT, verbose_name="Задача")
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
+
+    text = models.TextField(blank=True, verbose_name="Решение")
+    review = models.TextField(blank=True, verbose_name="Отзыв проверяющего")
 
     reviewer = models.ForeignKey(
         Person, null=True, blank=True, related_name='reviews', on_delete=models.PROTECT, verbose_name="Проверяющий"
     )
-
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     update_time = models.DateTimeField(auto_now=True, verbose_name="Время обновления")
 
-    submit_time = models.DateTimeField(blank=True, null=True, verbose_name="Отпрвлено на проверку")
-    accept_time = models.DateTimeField(blank=True, null=True, verbose_name="Зачтена")
+    is_submitted = models.BooleanField(default=False, verbose_name="Отправлено на проверку")
+    is_accepted = models.BooleanField(default=False, verbose_name="Зачтена")
 
-    is_liked = models.BooleanField(null=True, blank=True, verbose_name='Понравилась')
-    star = models.BooleanField(default=False, verbose_name='В избранном')
-
-    tries_count = models.IntegerField(default=0, verbose_name='Попыток')
     reward = models.IntegerField(default=0, verbose_name='Награда')
 
-    def to_submit(self):
-        self.submit_time = timezone.now()
-        self.text, self.prev = self.draft, self.text
-
-    def to_accept(self):
-        self.accept_time = timezone.now()
-
     def __str__(self):
-        return f'{self.author.username} -> {self.puzzle.slug}'
+        return f'{self.author} -> {self.puzzle}'
 
     def get_absolute_url(self):
-        return reverse('show_solution', kwargs={'id': self.id})
+        return reverse('solution-detail', kwargs={'id': self.id})
 
     class Meta:
         verbose_name = 'Решение'
         verbose_name_plural = 'Решения'
-        ordering = ['-reward', 'submit_time']
 
 
 class Filter(models.Model):
@@ -58,7 +43,6 @@ class Filter(models.Model):
     puzzle = models.ForeignKey(
         Puzzle, blank=True, on_delete=models.PROTECT, related_name='solution_filter', verbose_name="Задача"
     )
-    on_review = models.BooleanField(default=False, verbose_name="Взята на проверку")
     is_submitted = models.BooleanField(default=True, verbose_name="Отправлена на проверку")
     is_accepted = models.BooleanField(default=False, verbose_name="Зачтена")
 
@@ -76,7 +60,7 @@ class Talk(models.Model):
     solution = models.ForeignKey(Solution, on_delete=models.PROTECT, verbose_name="Решение")
 
     def __str__(self):
-        return f'{self.comment.author} -> {self.solution}'
+        return f'{self.comment} -> {self.solution}'
 
     class Meta:
         verbose_name = 'Комментарий'

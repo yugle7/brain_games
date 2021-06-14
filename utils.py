@@ -15,11 +15,7 @@ def get_now():
     return timezone.now()
 
 
-def get_usefulness(likes_count, dislikes_count):
-    return (likes_count - dislikes_count) / (1 + max(likes_count, dislikes_count))
-
-
-class BaseFake:
+class BaseData:
     app = ''
 
     def get_rand(self, array):
@@ -30,6 +26,4 @@ class BaseFake:
         return random() > 0.5
 
     def get_data(self, name):
-        return csv.reader(open(f'{self.app}/fake/{name}.csv'))
-
-
+        return csv.reader(open(f'{self.app}/tests/data/{name}.csv'))

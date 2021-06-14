@@ -3,7 +3,7 @@ from django.views.generic import DetailView
 from .models import *
 
 
-class ShowPoll(DetailView):
+class PollDetail(DetailView):
     model = Poll
-    template_name = 'poll/show.html'
+    template_name = 'poll/detail.html'
     context_object_name = 'poll'

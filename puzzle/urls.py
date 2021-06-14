@@ -1,10 +1,9 @@
-from django.urls import path, re_path
-from django.views.decorators.cache import cache_page
+from django.urls import path
 
 from .views import *
 
 urlpatterns = [
-    path('', PuzzleList.as_view(), name='puzzle_list'),
-    path('add/', ShowPuzzle.as_view(), name='add_puzzle'),
-    path('<slug:slug>/', ShowPuzzle.as_view(), name='show_puzzle'),
+    path('', PuzzleList.as_view(), name='puzzle-list'),
+    path('create/', PuzzleCreate.as_view(), name='puzzle-create'),
+    path('<slug:slug>/', PuzzleDetail.as_view(), name='puzzle-detail'),
 ]

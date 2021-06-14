@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from .models import *
 
 
-class AddDiscussForm(forms.ModelForm):
+class DiscussCreateForm(forms.ModelForm):
     class Meta:
         model = Discuss
         fields = ['title', 'slug', 'text']
@@ -16,12 +16,6 @@ class AddDiscussForm(forms.ModelForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         if len(title) > MAX_TITLE_LEN:
-            raise ValidationError(f'Название не более {MAX_TITLE_LEN} символов')
+            raise ValidationError(f'Название должно быть не более {MAX_TITLE_LEN} символов')
 
         return title
-
-
-class GetDiscussForm(forms.ModelForm):
-    class Meta:
-        model = Filter
-        fields = ['query', 'category', 'solved', 'author', 'approved', 'sort_by', 'sort_as']
