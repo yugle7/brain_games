@@ -11,7 +11,7 @@ class Solution(models.Model):
     puzzle = models.ForeignKey(Puzzle, on_delete=models.PROTECT, verbose_name="Задача")
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
 
-    text = models.TextField(blank=True, verbose_name="Решение")
+    answer = models.TextField(blank=True, verbose_name="Решение")
     review = models.TextField(blank=True, verbose_name="Отзыв проверяющего")
 
     reviewer = models.ForeignKey(
@@ -36,27 +36,12 @@ class Solution(models.Model):
         verbose_name_plural = 'Решения'
 
 
-class Filter(models.Model):
-    person = models.ForeignKey(
-        Person, blank=True, on_delete=models.PROTECT, related_name='solution_filter', verbose_name="Пользователь"
-    )
-    puzzle = models.ForeignKey(
-        Puzzle, blank=True, on_delete=models.PROTECT, related_name='solution_filter', verbose_name="Задача"
-    )
-    is_submitted = models.BooleanField(default=True, verbose_name="Отправлена на проверку")
-    is_accepted = models.BooleanField(default=False, verbose_name="Зачтена")
-
-    category = models.ForeignKey(
-        Category, null=True, on_delete=models.PROTECT, related_name='solution_filter', verbose_name="Категория задач"
-    )
-
-    class Meta:
-        verbose_name = 'Фильтр'
-        verbose_name_plural = 'Фильтры'
 
 
 class Talk(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.PROTECT, verbose_name="Комментарий")
+    comment = models.ForeignKey(
+        Comment, on_delete=models.PROTECT, related_name='solution_talk', verbose_name="Комментарий"
+    )
     solution = models.ForeignKey(Solution, on_delete=models.PROTECT, verbose_name="Решение")
 
     def __str__(self):

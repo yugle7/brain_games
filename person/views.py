@@ -3,14 +3,23 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.views.generic import CreateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
 
 from .forms import *
 
 
-class PersonList(ListView):
+class PersonList(FormMixin, ListView):
     model = Person
+
     template_name = 'person/list.html'
-    context_object_name = 'persons'
+    context_object_name = 'polls'
+    form_class = PersonListForm
+
+    def get_success_url(self):
+        return reverse_lazy('person-list')
+
+    def get_queryset(self):
+        return Person.objects.all()
 
 
 class PersonDetail(DetailView):
@@ -28,7 +37,7 @@ class RegisterUser(CreateView):
         person = form.save()
         login(self.request, person)
 
-        return reverse_lazy(self.request.GET.get('next', 'puzzle_list'))
+        return reverse_lazy(self.request.GET.get('next', 'puzzle-list'))
 
 
 class LoginUser(LoginView):
@@ -36,9 +45,9 @@ class LoginUser(LoginView):
     template_name = 'person/login.html'
 
     def get_success_url(self):
-        return reverse_lazy(self.request.GET.get('next', 'puzzle_list'))
+        return reverse_lazy(self.request.GET.get('next', 'puzzle-list'))
 
 
 def logout_user(request):
     logout(request)
-    return redirect('home')
+    return redirect('puzzle-list')

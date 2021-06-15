@@ -15,7 +15,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'{reverse("puzzle_list")}?category={self.slug}'
+        return f'{reverse("puzzle-list")}?category={self.slug}'
 
     class Meta:
         verbose_name = 'Категория'
@@ -44,16 +44,6 @@ class Puzzle(models.Model):
     interest = models.FloatField(default=0, verbose_name='Интерес')
     complexity = models.FloatField(default=0, verbose_name='Сложность')
 
-    def set_complexity(self):
-        if self.answered_count > 10 and self.looked_count > 100:
-            solves_count = self.one_try + self.two_tries / 2 + self.three_tries / 4 + self.many_tries / 8
-            answers_count = self.answered_count + self.looked_count / 5
-            self.complexity = 1 - solves_count / answers_count
-
-    def set_interest(self):
-        if self.solved_count > 2:
-            self.interest = (self.stars_count + self.likes_count - 2 * self.dislikes_count) / self.solved_count
-
     def __str__(self):
         return self.title
 
@@ -62,8 +52,6 @@ class Puzzle(models.Model):
 
     def save(self, *args, **kwargs):
         self.search = get_search(self.title + ' ' + self.text)
-        self.set_complexity()
-        self.set_interest()
         super().save(*args, **kwargs)
 
     class Meta:
@@ -72,39 +60,16 @@ class Puzzle(models.Model):
         ordering = ['id']
 
 
-class Filter(models.Model):
-    SORT_BY = (
-        (1, 'weight'),
-        (2, 'create_time'),
-        (3, 'solved_count'),
-        (4, 'interest'),
-        (5, 'complexity'),
-    )
-    sort_by = models.SmallIntegerField(default=1, choices=SORT_BY, verbose_name="Сортировать по")
-    sort_as = models.BooleanField(default=True, verbose_name="Сортировать как")
-
-    author = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='puzzle_filter', verbose_name="Автор")
-
-    is_solved = models.BooleanField(null=True, blank=True, verbose_name="Решена")
-    is_published = models.BooleanField(default=True, verbose_name="Опубликована")
-
-    category = models.ForeignKey(Category, null=True, on_delete=models.PROTECT, verbose_name="Категория")
-    query = models.CharField(max_length=MAX_QUERY_LEN, verbose_name="Поисковый запрос")
-
-    class Meta:
-        verbose_name = 'Фильтр'
-        verbose_name_plural = 'Фильтры'
-        ordering = ['id']
-
-
 class Talk(models.Model):
     is_public = models.BooleanField(default=True, verbose_name="Публичные")
 
     puzzle = models.ForeignKey(Puzzle, on_delete=models.PROTECT, verbose_name="Задача")
-    comment = models.ForeignKey(Comment, on_delete=models.PROTECT, verbose_name="Комментарий")
+    comment = models.ForeignKey(
+        Comment, on_delete=models.PROTECT, related_name='puzzle_talk', verbose_name="Комментарий"
+    )
 
     def __str__(self):
-        return f'{self.comment.author} -> {self.puzzle}'
+        return f'{self.comment} -> {self.puzzle}'
 
     class Meta:
         verbose_name = 'Комментарий'

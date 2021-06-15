@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ValidationError
 
 from .models import *
 
@@ -13,9 +12,9 @@ class DiscussCreateForm(forms.ModelForm):
             'text': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
         }
 
-    def clean_title(self):
-        title = self.cleaned_data['title']
-        if len(title) > MAX_TITLE_LEN:
-            raise ValidationError(f'Название должно быть не более {MAX_TITLE_LEN} символов')
 
-        return title
+class DiscussListForm(forms.ModelForm):
+    class Meta:
+        model = Discuss
+        fields = ['author', 'topic', 'search']
+

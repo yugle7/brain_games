@@ -23,7 +23,6 @@ from discuss.views import *
 from main.views import *
 from person.views import *
 from poll.views import *
-from chat.views import *
 from puzzle.views import *
 from solution.views import *
 
@@ -34,8 +33,7 @@ urlpatterns = [
     path('solution/', include('solution.urls')),
     path('discuss/', include('discuss.urls')),
     path('poll/', include('poll.urls')),
-    path('chat/', include('chat.urls')),
-    path('', include('main.urls')),
+    # path('', include('main.urls')),
 ]
 
 if settings.DEBUG:

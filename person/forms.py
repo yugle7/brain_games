@@ -4,12 +4,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
 
 
-class GetFilterForm(forms.ModelForm):
-    class Meta:
-        model = Filter
-        fields = ['sort_by', 'sort_as', 'is_friend', 'role']
-
-
 class RegisterUserForm(UserCreationForm):
     username = forms.SlugField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
@@ -23,3 +17,20 @@ class RegisterUserForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+
+
+class PersonListForm(forms.ModelForm):
+    SORT_BY = (
+        (1, 'rating'),
+        (2, 'contribution'),
+        (3, 'money'),
+        (4, 'last_visit_time'),
+        (5, 'date_joined'),
+    )
+    sort_by = forms.ChoiceField(choices=SORT_BY, verbose_name="Сортировать по")
+    sort_as = forms.Select(default=True, verbose_name="Сортировать как")
+
+    is_friend = forms.BooleanField(default=False, verbose_name="Друг")
+
+    role = forms.CharField(max_length=MAX_SLUG_LEN, blank=True, verbose_name="Роль")
+    search = forms.CharField(max_length=MAX_QUERY_LEN, blank=True, verbose_name="Поисковый запрос")

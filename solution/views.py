@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 
-from solution.forms import SolutionCreateForm
+from solution.forms import SolutionCreateForm, SolutionListForm
 from .models import *
 
 
@@ -16,6 +16,7 @@ class SolutionList(ListView):
     model = Solution
     template_name = 'solution/list.html'
     context_object_name = 'solutions'
+    form_class = SolutionListForm
 
     def get_queryset(self):
         params = {

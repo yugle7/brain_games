@@ -20,7 +20,7 @@ class Topic(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return f'{reverse("discuss_list")}?topic={self.slug}'
+        return f'{reverse("discuss-list")}?topic={self.slug}'
 
     class Meta:
         verbose_name = 'Тема'
@@ -38,16 +38,12 @@ class Discuss(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.PROTECT, verbose_name="Тема")
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
 
+    poll = models.OneToOneField(Poll, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Опрос')
+
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     update_time = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
-    edit_time = models.DateTimeField(blank=True, null=True, verbose_name="Время правки")
 
     is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
-
-    comments_count = models.IntegerField(default=0, verbose_name='Комментариев')
-    persons_count = models.IntegerField(default=0, verbose_name='Участников')
-
-    poll = models.OneToOneField(Poll, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Опрос')
 
     def save(self, *args, **kwargs):
         self.search = get_search(self.title + ' ' + self.text)
@@ -65,28 +61,10 @@ class Discuss(models.Model):
         ordering = ['-update_time']
 
 
-class Filter(models.Model):
-    SORT_BY = (
-        (1, 'comments_count'),
-        (2, 'update_time')
-    )
-    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY, verbose_name="Сортировать по")
-    sort_as = models.BooleanField(null=True, blank=True, verbose_name="Сортировать как")
-
-    author = models.ForeignKey(
-        Person, blank=True, on_delete=models.PROTECT, related_name='discuss_filter', verbose_name="Автор"
-    )
-
-    topic = models.ForeignKey(Topic, blank=True, on_delete=models.PROTECT, verbose_name="Тема")
-    query = models.CharField(max_length=MAX_QUERY_LEN, blank=True, verbose_name="Поисковый запрос")
-
-    class Meta:
-        verbose_name = 'Фильтр'
-        verbose_name_plural = 'Фильтры'
-
-
 class Talk(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.PROTECT, verbose_name="Комментарий")
+    comment = models.ForeignKey(
+        Comment, on_delete=models.PROTECT, related_name='discuss_talk', verbose_name="Комментарий"
+    )
     discuss = models.ForeignKey(Discuss, on_delete=models.PROTECT, verbose_name="Обсуждение")
 
     def __str__(self):

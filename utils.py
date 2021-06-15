@@ -22,7 +22,7 @@ class BaseData:
         i = randint(0, len(array) - 1)
         return array[i]
 
-    def get_coin(self):
+    def flip_coin(self):
         return random() > 0.5
 
     def get_data(self, name):

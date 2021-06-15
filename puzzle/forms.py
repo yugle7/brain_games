@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ValidationError
 
 from .models import *
 
@@ -13,15 +12,19 @@ class PuzzleCreateForm(forms.ModelForm):
             'text': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
         }
 
-    def clean_title(self):
-        title = self.cleaned_data['title']
-        if len(title) > MAX_TITLE_LEN:
-            raise ValidationError(f'Название не более {MAX_TITLE_LEN} символов')
 
-        return title
+class PuzzleListForm(forms.ModelForm):
+    SORT_BY = (
+        (1, 'weight'),
+        (2, 'create_time'),
+        (3, 'solved_count'),
+        (4, 'interest'),
+        (5, 'complexity'),
+    )
 
+    sort_by = forms.ChoiceField(choices=SORT_BY, verbose_name="Сортировать по")
+    sort_as = forms.Select(default=True, verbose_name="Сортировать как")
 
-class FilterForm(forms.ModelForm):
     class Meta:
-        model = Filter
-        fields = ['query', 'category', 'is_solved', 'author', 'is_published', 'sort_by', 'sort_as']
+        model = Puzzle
+        fields = ['author', 'search', 'category', 'is_solved', 'is_published', 'sort_by', 'sort_as']

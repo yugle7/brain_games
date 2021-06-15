@@ -10,6 +10,7 @@ class Poll(models.Model):
 
     title = models.CharField(max_length=MAX_TITLE_LEN, verbose_name="Название")
     text = models.TextField(blank=True, verbose_name="Описание")
+    search = models.TextField(blank=True, verbose_name="Поиск")
 
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
 
@@ -20,14 +21,11 @@ class Poll(models.Model):
     is_published = models.BooleanField(null=True, blank=True, verbose_name="Опубликована")
     is_multiple = models.BooleanField(default=False, verbose_name='Несколько вариантов')
 
-    persons_count = models.IntegerField(default=0, verbose_name='Проголосовало')
-
     def __str__(self):
         return self.title
 
     def inc(self, votes):
         if len(votes) > 0:
-            self.persons_count += 1
             for vote in votes:
                 vote.save()
         self.save()
@@ -36,7 +34,6 @@ class Poll(models.Model):
         votes = person.vote_set(choice__poll=self)
         if votes.count() > 0:
             votes.delete()
-            self.persons_count -= 1
         self.save()
 
     class Meta:
@@ -90,22 +87,3 @@ class Vote(models.Model):
         ordering = ['id']
 
 
-class Filter(models.Model):
-    SORT_BY = (
-        (1, 'persons_count'),
-        (2, 'time_update'),
-    )
-    sort_by = models.SmallIntegerField(null=True, blank=True, choices=SORT_BY, verbose_name="Сортировать по")
-    sort_as = models.BooleanField(default=True, verbose_name="Сортировать как")
-
-    author = models.ForeignKey(
-        Person, null=True, blank=True, on_delete=models.SET_NULL, related_name='poll_filter',
-        verbose_name="Автор"
-    )
-
-    query = models.CharField(max_length=MAX_QUERY_LEN, blank=True, verbose_name="Поисковый запрос")
-
-    class Meta:
-        verbose_name = 'Фильтр'
-        verbose_name_plural = 'Фильтры'
-        ordering = ['id']

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from .models import *
 
 
-class AddPollForm(forms.ModelForm):
+class PollCreateForm(forms.ModelForm):
     class Meta:
         model = Poll
         fields = ['title', 'slug', 'text']
@@ -19,3 +19,9 @@ class AddPollForm(forms.ModelForm):
             raise ValidationError(f'Название должно быть не более {MAX_TITLE_LEN} символов')
 
         return title
+
+
+class PollListForm(forms.ModelForm):
+    class Meta:
+        model = Poll
+        fields = ['author', 'search']

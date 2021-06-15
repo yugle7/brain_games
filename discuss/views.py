@@ -1,17 +1,23 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, CreateView
+from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
 from comment.forms import CommentCreateForm
-from discuss.forms import DiscussCreateForm
+from discuss.forms import DiscussCreateForm, DiscussListForm
 from .models import *
 
 
-class DiscussList(ListView):
+class DiscussList(FormMixin, ListView):
     model = Discuss
+
     template_name = 'discuss/list.html'
     context_object_name = 'discusses'
+    form_class = DiscussListForm
+
+    def get_success_url(self):
+        return reverse_lazy('discuss-list')
 
     def get_queryset(self):
         return Discuss.objects.all()

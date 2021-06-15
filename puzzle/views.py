@@ -18,18 +18,15 @@ class PuzzleList(ListView):
     context_object_name = 'puzzles'
 
     def get_queryset(self):
-        puzzles = Puzzle.objects.filter(published=True).select_related('author', 'category')
+        params = {}
 
         if 'author' in self.kwargs:
-            puzzles = puzzles.filter(author__login=self.kwargs['author'])
+            params['author__login'] = self.kwargs['author']
 
-        if 'approved' in self.kwargs:
-            puzzles = puzzles.filter(approved=self.kwargs['approved'])
+        if 'is_published' in self.kwargs:
+            params['is_published'] = self.kwargs['is_published']
 
-        if 'category' in self.kwargs:
-            puzzles = puzzles.filter(category__slug=self.kwargs['category'])
-
-        return puzzles
+        return Puzzle.objects.filter(**params).select_related('author', 'category')
 
 
 class PuzzleCreate(LoginRequiredMixin, CreateView):

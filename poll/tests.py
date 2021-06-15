@@ -24,7 +24,7 @@ class Data(BaseData):
                     slug=slug,
                     title=title,
                     author=self.get_rand(self.persons),
-                    is_multiple=self.get_coin()
+                    is_multiple=self.flip_coin()
                 )
             )
         return polls
@@ -46,7 +46,7 @@ class Data(BaseData):
 
         for person in self.persons:
             for poll in self.polls:
-                if self.get_coin():
+                if self.flip_coin():
                     choices = poll.choice_set.all()
                     vote = Vote(
                         choice=self.get_rand(choices),

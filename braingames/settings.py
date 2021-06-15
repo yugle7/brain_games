@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'main.apps.MainConfig',
-    'poll.apps.PollConfig',
-    'chat.apps.ChatConfig',
     'person.apps.PersonConfig',
+    'comment.apps.CommentConfig',
     'puzzle.apps.PuzzleConfig',
-    'discuss.apps.DiscussConfig',
     'solution.apps.SolutionConfig',
+    'discuss.apps.DiscussConfig',
+    'poll.apps.PollConfig',
 ]
 
 MIDDLEWARE = [
