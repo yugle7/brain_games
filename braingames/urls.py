@@ -33,7 +33,7 @@ urlpatterns = [
     path('solution/', include('solution.urls')),
     path('discuss/', include('discuss.urls')),
     path('poll/', include('poll.urls')),
-    # path('', include('main.urls')),
+    path('activity/', include('activity.urls')),
 ]
 
 if settings.DEBUG:

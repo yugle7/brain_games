@@ -15,4 +15,4 @@ class SolutionCreateForm(forms.ModelForm):
 class SolutionListForm(forms.ModelForm):
     class Meta:
         model = Solution
-        fields = ['person', 'puzzle', 'is_submitted', 'is_accepted', 'category']
+        fields = ['author', 'puzzle', 'is_submitted', 'is_accepted']

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'solution.apps.SolutionConfig',
     'discuss.apps.DiscussConfig',
     'poll.apps.PollConfig',
+    'activity.apps.ActivityConfig',
 ]
 
 MIDDLEWARE = [

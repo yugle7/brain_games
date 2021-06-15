@@ -36,8 +36,6 @@ class Solution(models.Model):
         verbose_name_plural = 'Решения'
 
 
-
-
 class Talk(models.Model):
     comment = models.ForeignKey(
         Comment, on_delete=models.PROTECT, related_name='solution_talk', verbose_name="Комментарий"

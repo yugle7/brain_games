@@ -30,6 +30,7 @@ class Puzzle(models.Model):
     text = models.TextField(blank=True, verbose_name="Условие")
     notes = models.TextField(blank=True, verbose_name="Примечания")
     reference = models.TextField(blank=True, verbose_name="Эталонное решение")
+    search = models.TextField(blank=True, verbose_name="Поиск")
 
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
 

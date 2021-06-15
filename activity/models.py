@@ -1,5 +1,6 @@
 from django.db import models
 
+from const import MAX_URL_LEN, MAX_TITLE_LEN
 from person.models import Person
 
 KIND = (
@@ -10,9 +11,9 @@ KIND = (
 
 class Activity(models.Model):
     kind = models.SmallIntegerField(null=True, blank=True, choices=KIND, verbose_name="Тип")
-    link = models.CharField(blank=True, verbose_name="Ссылка")
+    link = models.CharField(blank=True, max_length=MAX_URL_LEN, verbose_name="Ссылка")
 
-    title = models.CharField(blank=True, verbose_name="Заголовок")
+    title = models.CharField(blank=True, max_length=MAX_TITLE_LEN, verbose_name="Заголовок")
     text = models.TextField(blank=True, verbose_name="Текст")
     search = models.TextField(blank=True, verbose_name="Поиск")
 

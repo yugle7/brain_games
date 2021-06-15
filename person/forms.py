@@ -27,10 +27,10 @@ class PersonListForm(forms.ModelForm):
         (4, 'last_visit_time'),
         (5, 'date_joined'),
     )
-    sort_by = forms.ChoiceField(choices=SORT_BY, verbose_name="Сортировать по")
-    sort_as = forms.Select(default=True, verbose_name="Сортировать как")
+    sort_by = forms.ChoiceField(choices=SORT_BY, label="Сортировать по")
+    sort_as = forms.BooleanField(label="Сортировать как")
 
-    is_friend = forms.BooleanField(default=False, verbose_name="Друг")
+    is_friend = forms.BooleanField(label="Друг")
 
-    role = forms.CharField(max_length=MAX_SLUG_LEN, blank=True, verbose_name="Роль")
-    search = forms.CharField(max_length=MAX_QUERY_LEN, blank=True, verbose_name="Поисковый запрос")
+    role = forms.CharField(max_length=MAX_SLUG_LEN, label="Роль")
+    search = forms.CharField(max_length=MAX_QUERY_LEN, label="Поисковый запрос")

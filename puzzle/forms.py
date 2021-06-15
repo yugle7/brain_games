@@ -22,8 +22,10 @@ class PuzzleListForm(forms.ModelForm):
         (5, 'complexity'),
     )
 
-    sort_by = forms.ChoiceField(choices=SORT_BY, verbose_name="Сортировать по")
-    sort_as = forms.Select(default=True, verbose_name="Сортировать как")
+    sort_by = forms.ChoiceField(choices=SORT_BY, label="Сортировать по")
+    sort_as = forms.BooleanField(label="Сортировать как")
+
+    is_solved = forms.BooleanField(label="Зачтена")
 
     class Meta:
         model = Puzzle
