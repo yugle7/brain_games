@@ -49,7 +49,7 @@ class Puzzle(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('show_puzzle', kwargs={'slug': self.slug})
+        return reverse('puzzle-detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         self.search = get_search(self.title + ' ' + self.text)

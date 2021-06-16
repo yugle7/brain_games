@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.urls import reverse
 
@@ -53,9 +54,10 @@ class Discuss(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('show_discuss', kwargs={'slug': self.slug})
+        return reverse('discuss-detail', kwargs={'slug': self.slug})
 
     class Meta:
+        Counter
         verbose_name = 'Обсуждение'
         verbose_name_plural = 'Обсуждения'
         ordering = ['-update_time']
