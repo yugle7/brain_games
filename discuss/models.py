@@ -57,7 +57,6 @@ class Discuss(models.Model):
         return reverse('discuss-detail', kwargs={'slug': self.slug})
 
     class Meta:
-        Counter
         verbose_name = 'Обсуждение'
         verbose_name_plural = 'Обсуждения'
         ordering = ['-update_time']
