@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 from const import *
 from utils import *

@@ -1,7 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from django.test import TestCase
 
-from comment.models import Comment
 from person.models import *
 
 
@@ -9,7 +8,7 @@ def create_superuser(username='root'):
     Person.objects.create(
         username=username,
         email=username + '@bg.ru',
-        password=make_password('123'),
+        password=make_password('bg'),
         is_superuser=True,
         is_staff=True
     )
@@ -20,7 +19,6 @@ class Data(BaseData):
 
     roles = []
     persons = []
-    talks = []
 
     def __init__(self):
         Person.objects.all().delete()
@@ -30,7 +28,6 @@ class Data(BaseData):
 
         self.create_roles()
         self.create_persons()
-        self.create_talks()
 
     def create_roles(self):
         for slug, name in self.get_data('roles'):
@@ -45,21 +42,8 @@ class Data(BaseData):
                     username=username,
                     about=about,
                     email=username + '@bg.ru',
-                    password=make_password('123'),
+                    password=make_password('bg'),
                     role=self.get_rand(self.roles)
-                )
-            )
-
-    def create_talks(self):
-        for text in self.get_data('comments'):
-            comment = Comment.objects.create(
-                text=text[0],
-                author=self.get_rand(self.persons),
-            )
-            self.talks.append(
-                Talk.objects.create(
-                    comment=comment,
-                    person=self.get_rand(self.persons)
                 )
             )
 

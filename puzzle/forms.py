@@ -26,6 +26,7 @@ class PuzzleListForm(forms.ModelForm):
     sort_as = forms.BooleanField(label="Сортировать как")
 
     is_solved = forms.BooleanField(label="Зачтена")
+    is_published = forms.BooleanField(label="Опубликована")
 
     class Meta:
         model = Puzzle

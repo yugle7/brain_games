@@ -42,6 +42,24 @@ class Data(BaseData):
                 )
             )
 
+    def create_comments(self):
+        for text in self.get_data('comments'):
+            self.comments.append(
+                Comment.objects.create(
+                    text=text[0],
+                    author=self.get_rand(self.persons),
+                )
+            )
+
+    def create_talks(self):
+        for comment in self.comments:
+            self.talks.append(
+                Talk.objects.create(
+                    comment=comment,
+                    discuss=self.get_rand(self.discusses)
+                )
+            )
+
 
 class TopicTest(TestCase):
     @classmethod

@@ -26,4 +26,4 @@ class BaseData:
         return random() > 0.5
 
     def get_data(self, name):
-        return csv.reader(open(f'{self.app}/tests/data/{name}.csv'))
+        return csv.reader(open(f'{self.app}/objects/{name}.csv'))

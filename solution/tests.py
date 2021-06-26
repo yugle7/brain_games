@@ -6,62 +6,53 @@ from .models import *
 class Data(BaseData):
     app = 'solution'
 
+    reviews = []
+    answers = []
     solutions = []
 
     def __init__(self):
         assert Person.objects.exists()
         assert Puzzle.objects.exists()
 
+        Review.objects.all().delete()
+        Answer.objects.all().delete()
         Solution.objects.all().delete()
 
         self.persons = Person.objects.all()
         self.puzzles = Puzzle.objects.all()
+
         self.create_solutions()
+        self.create_answers()
+        self.create_reviews()
 
     def create_solutions(self):
-        answers = []
-        for answer in self.get_data('answers'):
-            answers.append(answer)
+        for text in self.get_data('answers'):
+            self.solutions.append(
+                Solution.objects.create(
+                    text=text[0],
+                    author=self.get_rand(self.persons),
+                    puzzle=self.get_rand(self.puzzles)
+                )
+            )
 
-        reviews = []
-        for review in self.get_data('reviews'):
-            reviews.append(review)
+    def create_answers(self):
+        for solution in self.solutions:
+            self.answers.append(
+                Answer.objects.create(
+                    solution=solution,
+                    text=solution.text,
+                )
+            )
 
-        for answer in answers:
-            params = {
-                'author': self.get_rand(self.persons),
-                'puzzle': self.get_rand(self.puzzles),
-                'answer': answer,
-            }
-
-            while self.flip_coin():
-                params['is_submitted'] = True
-                if 'reviewer' not in params:
-                    if self.flip_coin():
-                        params['reviewer'] = self.get_rand(self.persons)
-                    else:
-                        break
-
-                if self.flip_coin():
-                    params['review'] = self.get_rand(reviews)
-
-                    if self.flip_coin():
-                        params['is_accepted'] = True
-                        break
-
-                    if self.flip_coin():
-                        solution = Solution.objects.create(**params)
-                        self.solutions.append(solution)
-
-                        params = {
-                            'author': params['author'],
-                            'puzzle': params['puzzle'],
-                            'reviewer': self.get_rand(self.persons),
-                            'answer': self.get_rand(answers),
-                        }
-
-        solution = Solution.objects.create(**params)
-        self.solutions.append(solution)
+    def create_reviews(self):
+        for text in self.get_data('reviews'):
+            self.reviews.append(
+                Review.objects.create(
+                    text=text[0],
+                    author=self.get_rand(self.persons),
+                    answer=self.get_rand(self.answers)
+                )
+            )
 
 
 class SolutionTest(TestCase):
