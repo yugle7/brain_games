@@ -18,9 +18,14 @@ def get_now():
 class BaseData:
     app = ''
 
-    def get_rand(self, array):
-        i = randint(0, len(array) - 1)
-        return array[i]
+    def get_rand(self, array, field=None):
+        if field is None:
+            i = randint(0, len(array) - 1)
+            return array[i]
+        for _ in range(2):
+            i = randint(0, len(array) - 1)
+            if not hasattr(array[i], field):
+                return array[i]
 
     def flip_coin(self):
         return random() > 0.5

@@ -37,7 +37,7 @@ class Data(BaseData):
                 Discuss.objects.create(
                     slug=slug,
                     title=title,
-                    talk=self.get_rand(self.talks),
+                    talk=self.get_rand(self.talks, 'discuss'),
                     topic=self.get_rand(self.topics),
                     author=self.get_rand(self.persons)
                 )

@@ -41,8 +41,8 @@ class Data(BaseData):
                     text=text,
                     author=self.get_rand(self.persons),
                     category=self.get_rand(self.categories),
-                    public_talk=self.get_rand(self.talks),
-                    private_talk=self.get_rand(self.talks),
+                    public_talk=self.get_rand(self.talks, 'public_puzzle'),
+                    private_talk=self.get_rand(self.talks, 'private_puzzle'),
                     weight=1
                 )
             )

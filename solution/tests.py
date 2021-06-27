@@ -35,7 +35,7 @@ class Data(BaseData):
                     text=text[0],
                     author=self.get_rand(self.persons),
                     puzzle=self.get_rand(self.puzzles),
-                    talk=self.get_rand(self.talks)
+                    talk=self.get_rand(self.talks, 'solution')
                 )
             )
 
