@@ -9,20 +9,19 @@ class Data(BaseData):
     categories = []
     puzzles = []
     comments = []
-    talks = []
 
     def __init__(self):
         assert Person.objects.exists()
+        self.persons = Person.objects.all()
 
-        Talk.objects.all().delete()
+        assert Talk.objects.exists()
+        self.talks = Talk.objects.all()
+
         Puzzle.objects.all().delete()
         Category.objects.all().delete()
 
-        self.persons = Person.objects.all()
         self.create_categories()
         self.create_puzzles()
-        self.create_comments()
-        self.create_talks()
 
     def create_categories(self):
         for slug, name in self.get_data('categories'):
@@ -42,26 +41,9 @@ class Data(BaseData):
                     text=text,
                     author=self.get_rand(self.persons),
                     category=self.get_rand(self.categories),
+                    public_talk=self.get_rand(self.talks),
+                    private_talk=self.get_rand(self.talks),
                     weight=1
-                )
-            )
-
-    def create_comments(self):
-        for text in self.get_data('comments'):
-            self.comments.append(
-                Comment.objects.create(
-                    text=text[0],
-                    author=self.get_rand(self.persons),
-                )
-            )
-
-    def create_talks(self):
-        for comment in self.comments:
-            self.talks.append(
-                Talk.objects.create(
-                    comment=comment,
-                    puzzle=self.get_rand(self.puzzles),
-                    is_public=self.flip_coin()
                 )
             )
 

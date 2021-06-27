@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from comment.models import Comment
+from comment.models import Comment, Talk
 from const import *
 from person.models import Person
 from utils import *
@@ -34,6 +34,15 @@ class Puzzle(models.Model):
 
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
 
+    public_talk = models.OneToOneField(
+        Talk, blank=True, null=True, on_delete=models.SET_NULL,
+        related_name='public_puzzle', verbose_name='Уточнение условий'
+    )
+    private_talk = models.OneToOneField(
+        Talk, blank=True, null=True, on_delete=models.SET_NULL,
+        related_name='private_puzzle', verbose_name='Обсуждение решения'
+    )
+
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     edit_time = models.DateTimeField(blank=True, null=True, verbose_name="Время правки")
 
@@ -58,21 +67,4 @@ class Puzzle(models.Model):
     class Meta:
         verbose_name = 'Задача'
         verbose_name_plural = 'Задачи'
-        ordering = ['id']
-
-
-class Talk(models.Model):
-    is_public = models.BooleanField(default=True, verbose_name="Публичные")
-
-    puzzle = models.ForeignKey(Puzzle, on_delete=models.PROTECT, verbose_name="Задача")
-    comment = models.ForeignKey(
-        Comment, on_delete=models.PROTECT, related_name='puzzle_talk', verbose_name="Комментарий"
-    )
-
-    def __str__(self):
-        return f'{self.comment} -> {self.puzzle}'
-
-    class Meta:
-        verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
         ordering = ['id']

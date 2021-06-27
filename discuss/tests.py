@@ -8,7 +8,6 @@ class Data(BaseData):
 
     topics = []
     discusses = []
-    talks = []
 
     def __init__(self):
         assert Person.objects.exists()
@@ -17,13 +16,14 @@ class Data(BaseData):
         assert Comment.objects.exists()
         self.comments = Comment.objects.all()
 
-        Talk.objects.all().delete()
+        assert Talk.objects.exists()
+        self.talks = Talk.objects.all()
+
         Discuss.objects.all().delete()
         Topic.objects.all().delete()
 
         self.create_topics()
         self.create_discusses()
-        self.create_talks()
 
     def create_topics(self):
         for slug, title in self.get_data('topics'):
@@ -37,26 +37,9 @@ class Data(BaseData):
                 Discuss.objects.create(
                     slug=slug,
                     title=title,
+                    talk=self.get_rand(self.talks),
                     topic=self.get_rand(self.topics),
                     author=self.get_rand(self.persons)
-                )
-            )
-
-    def create_comments(self):
-        for text in self.get_data('comments'):
-            self.comments.append(
-                Comment.objects.create(
-                    text=text[0],
-                    author=self.get_rand(self.persons),
-                )
-            )
-
-    def create_talks(self):
-        for comment in self.comments:
-            self.talks.append(
-                Talk.objects.create(
-                    comment=comment,
-                    discuss=self.get_rand(self.discusses)
                 )
             )
 

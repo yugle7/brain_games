@@ -12,14 +12,17 @@ class Data(BaseData):
 
     def __init__(self):
         assert Person.objects.exists()
+        self.persons = Person.objects.all()
+
         assert Puzzle.objects.exists()
+        self.puzzles = Puzzle.objects.all()
+
+        assert Talk.objects.exists()
+        self.talks = Talk.objects.all()
 
         Review.objects.all().delete()
         Answer.objects.all().delete()
         Solution.objects.all().delete()
-
-        self.persons = Person.objects.all()
-        self.puzzles = Puzzle.objects.all()
 
         self.create_solutions()
         self.create_answers()
@@ -31,7 +34,8 @@ class Data(BaseData):
                 Solution.objects.create(
                     text=text[0],
                     author=self.get_rand(self.persons),
-                    puzzle=self.get_rand(self.puzzles)
+                    puzzle=self.get_rand(self.puzzles),
+                    talk=self.get_rand(self.talks)
                 )
             )
 

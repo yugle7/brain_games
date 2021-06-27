@@ -1,8 +1,7 @@
-
 from django.db import models
 from django.urls import reverse
 
-from comment.models import Comment
+from comment.models import Comment, Talk
 from const import *
 from person.models import Person
 from poll.models import Poll
@@ -39,6 +38,7 @@ class Discuss(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.PROTECT, verbose_name="Тема")
     author = models.ForeignKey(Person, on_delete=models.PROTECT, verbose_name="Автор")
 
+    talk = models.OneToOneField(Talk, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Разговор')
     poll = models.OneToOneField(Poll, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Опрос')
 
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
@@ -60,18 +60,3 @@ class Discuss(models.Model):
         verbose_name = 'Обсуждение'
         verbose_name_plural = 'Обсуждения'
         ordering = ['-update_time']
-
-
-class Talk(models.Model):
-    comment = models.ForeignKey(
-        Comment, on_delete=models.PROTECT, related_name='discuss_talk', verbose_name="Комментарий"
-    )
-    discuss = models.ForeignKey(Discuss, on_delete=models.PROTECT, verbose_name="Обсуждение")
-
-    def __str__(self):
-        return f'{self.comment.author} -> {self.discuss}'
-
-    class Meta:
-        verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
-        ordering = ['id']

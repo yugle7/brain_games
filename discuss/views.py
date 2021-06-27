@@ -24,7 +24,7 @@ class DiscussList(FormMixin, ListView):
 
 
 class DiscussDetail(FormMixin, DetailView):
-    model = Person
+    model = Discuss
     template_name = 'discuss/detail.html'
     context_object_name = 'discuss'
     form_class = CommentCreateForm
@@ -40,14 +40,12 @@ class DiscussDetail(FormMixin, DetailView):
     def form_valid(self, form):
         comment = form.save(commit=False)
         comment.author = self.request.user
+        comment.talk = self.get_object().talk
+
         if not super().form_valid(form):
             return False
 
         comment.save()
-        Talk.objects.create(
-            discuss=self.get_object(),
-            comment=comment
-        )
 
 
 class DiscussCreate(LoginRequiredMixin, CreateView):
