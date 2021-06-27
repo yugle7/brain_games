@@ -18,11 +18,11 @@ class Data(BaseData):
 
     def create_polls(self):
         polls = []
-        for slug, title in self.get_data('polls'):
+        for _ in range(5):
             polls.append(
                 Poll.objects.create(
-                    slug=slug,
-                    title=title,
+                    slug=self.get_slug(),
+                    title=self.get_title(),
                     author=self.get_rand(self.persons),
                     is_multiple=self.flip_coin()
                 )
@@ -32,10 +32,10 @@ class Data(BaseData):
     def create_choices(self):
         choices = []
 
-        for name in self.get_data('choices'):
+        for _ in range(20):
             choices.append(
                 Choice.objects.create(
-                    name=name[0],
+                    name=self.get_title(),
                     poll=self.get_rand(self.polls),
                 )
             )

@@ -24,7 +24,7 @@ class Data(BaseData):
         self.create_puzzles()
 
     def create_categories(self):
-        for slug, name in self.get_data('categories'):
+        for slug, name in self.get_categories():
             self.categories.append(
                 Category.objects.create(
                     slug=slug,
@@ -33,12 +33,12 @@ class Data(BaseData):
             )
 
     def create_puzzles(self):
-        for slug, title, text in self.get_data('puzzles'):
+        for _ in range(10):
             self.puzzles.append(
                 Puzzle.objects.create(
-                    slug=slug,
-                    title=title,
-                    text=text,
+                    slug=self.get_slug(),
+                    title=self.get_title(),
+                    text=self.get_text(),
                     author=self.get_rand(self.persons),
                     category=self.get_rand(self.categories),
                     public_talk=self.get_rand(self.talks, 'public_puzzle'),

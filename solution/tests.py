@@ -29,10 +29,10 @@ class Data(BaseData):
         self.create_reviews()
 
     def create_solutions(self):
-        for text in self.get_data('answers'):
+        for _ in range(10):
             self.solutions.append(
                 Solution.objects.create(
-                    text=text[0],
+                    text=self.get_text(),
                     author=self.get_rand(self.persons),
                     puzzle=self.get_rand(self.puzzles),
                     talk=self.get_rand(self.talks, 'solution')
@@ -49,10 +49,10 @@ class Data(BaseData):
             )
 
     def create_reviews(self):
-        for text in self.get_data('reviews'):
+        for _ in range(10):
             self.reviews.append(
                 Review.objects.create(
-                    text=text[0],
+                    text=self.get_text(),
                     author=self.get_rand(self.persons),
                     answer=self.get_rand(self.answers)
                 )

@@ -30,17 +30,18 @@ class Data(BaseData):
         self.create_persons()
 
     def create_roles(self):
-        for slug, name in self.get_data('roles'):
+        for slug, name in self.get_roles():
             self.roles.append(
                 Role.objects.create(slug=slug, name=name)
             )
 
     def create_persons(self):
-        for username, about in self.get_data('persons'):
+        for _ in range(20):
+            username = self.get_username()
             self.persons.append(
                 Person.objects.create(
                     username=username,
-                    about=about,
+                    about=self.get_text(),
                     email=username + '@bg.ru',
                     password=make_password('bg'),
                     role=self.get_rand(self.roles)

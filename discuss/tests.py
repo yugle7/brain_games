@@ -26,17 +26,21 @@ class Data(BaseData):
         self.create_discusses()
 
     def create_topics(self):
-        for slug, title in self.get_data('topics'):
+        for _ in range(5):
             self.topics.append(
-                Topic.objects.create(slug=slug, title=title)
+                Topic.objects.create(
+                    slug=self.get_slug(),
+                    title=self.get_title(),
+                )
             )
 
     def create_discusses(self):
-        for slug, title in self.get_data('discusses'):
+        for _ in range(15):
             self.discusses.append(
                 Discuss.objects.create(
-                    slug=slug,
-                    title=title,
+                    slug=self.get_slug(),
+                    title=self.get_title(),
+                    text=self.get_text(),
                     talk=self.get_rand(self.talks, 'discuss'),
                     topic=self.get_rand(self.topics),
                     author=self.get_rand(self.persons)

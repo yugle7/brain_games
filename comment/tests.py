@@ -21,16 +21,16 @@ class Data(BaseData):
         self.create_comments()
 
     def create_talks(self):
-        for i in range(10):
+        for i in range(20):
             self.talks.append(
                 Talk.objects.create()
             )
 
     def create_comments(self):
-        for text in self.get_data('comments'):
+        for _ in range(100):
             self.comments.append(
                 Comment.objects.create(
-                    text=text[0],
+                    text=self.get_text(),
                     author=self.get_rand(self.persons),
                     talk=self.get_rand(self.talks),
                 )
