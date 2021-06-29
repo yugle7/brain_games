@@ -10,7 +10,7 @@ from discuss.models import Discuss, Topic
 from person.models import Person, Role
 from poll.models import Poll, Vote, Choice
 from puzzle.models import Puzzle, Category
-from solution.models import Solution, Review, Answer
+from solution.models import Solution
 
 
 def data():
@@ -24,8 +24,6 @@ def data():
     Discuss.objects.all().delete()
     Topic.objects.all().delete()
 
-    Review.objects.all().delete()
-    Answer.objects.all().delete()
     Solution.objects.all().delete()
 
     Puzzle.objects.all().delete()

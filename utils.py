@@ -55,7 +55,8 @@ class BaseData:
         return self.ru.text()
 
     def get_title(self):
-        return self.ru.text(max_nb_chars=50)
+        title = self.ru.text(max_nb_chars=50).replace('.', '')
+        return title.capitalize()
 
     def get_slug(self):
         t = self.en.text(max_nb_chars=50).lower()

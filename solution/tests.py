@@ -6,9 +6,8 @@ from .models import *
 class Data(BaseData):
     app = 'solution'
 
-    reviews = []
-    answers = []
     solutions = []
+    talks = []
 
     def __init__(self):
         assert Person.objects.exists()
@@ -20,41 +19,19 @@ class Data(BaseData):
         assert Talk.objects.exists()
         self.talks = Talk.objects.all()
 
-        Review.objects.all().delete()
-        Answer.objects.all().delete()
         Solution.objects.all().delete()
 
         self.create_solutions()
-        self.create_answers()
-        self.create_reviews()
+        self.create_talks()
 
     def create_solutions(self):
         for _ in range(10):
             self.solutions.append(
                 Solution.objects.create(
-                    text=self.get_text(),
-                    author=self.get_rand(self.persons),
                     puzzle=self.get_rand(self.puzzles),
-                    talk=self.get_rand(self.talks, 'solution')
-                )
-            )
-
-    def create_answers(self):
-        for solution in self.solutions:
-            self.answers.append(
-                Answer.objects.create(
-                    solution=solution,
-                    text=solution.text,
-                )
-            )
-
-    def create_reviews(self):
-        for _ in range(10):
-            self.reviews.append(
-                Review.objects.create(
-                    text=self.get_text(),
                     author=self.get_rand(self.persons),
-                    answer=self.get_rand(self.answers)
+                    text=self.get_text(),
+                    talk=self.get_rand(self.talks, 'solution')
                 )
             )
 
