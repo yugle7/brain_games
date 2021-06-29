@@ -25,10 +25,10 @@ class Solution(models.Model):
     reward = models.IntegerField(default=0, verbose_name='Награда за проверку')
 
     def __str__(self):
-        return f'{self.author} -> {self.puzzle}'
+        return f'{self.solver} -> {self.puzzle}'
 
     def get_absolute_url(self):
-        return reverse('solution-detail', kwargs={'id': self.id})
+        return reverse('solution-detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = 'Решение'

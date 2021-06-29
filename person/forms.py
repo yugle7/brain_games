@@ -19,7 +19,7 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
-class PersonListForm(forms.ModelForm):
+class PersonListForm(forms.Form):
     SORT_BY = (
         (1, 'rating'),
         (2, 'contribution'),

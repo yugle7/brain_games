@@ -9,11 +9,11 @@ from django.views.generic.edit import FormMixin
 from .forms import *
 
 
-class PersonList(FormMixin, ListView):
+class PersonList(ListView, FormMixin):
     model = Person
 
     template_name = 'person/list.html'
-    context_object_name = 'polls'
+    context_object_name = 'persons'
     form_class = PersonListForm
 
     def get_success_url(self):
@@ -21,6 +21,14 @@ class PersonList(FormMixin, ListView):
 
     def get_queryset(self):
         return Person.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        return self.form_valid(form) if form.is_valid() else self.form_invalid(form)
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
 class PersonDetail(DetailView):

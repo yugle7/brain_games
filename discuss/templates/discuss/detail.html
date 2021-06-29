@@ -4,9 +4,10 @@
     {# значок назад #}
 {% endblock down %}
 
-{% block title %}
+{% block name %}
     {# профиль #}
-{% endblock title %}
+    профиль
+{% endblock name %}
 
 {% block up %}
     {# значок выхода из профиля, если я в своем #}
@@ -15,10 +16,7 @@
 {% endblock up %}
 
 {% block content %}
-    {% include 'person/includes/name.html' %}
-    {% include 'person/includes/contacts.html' %}
-    {% include 'person/includes/dates.html' %}
-    {% include 'person/includes/progress.html' %}
-    {% include 'person/includes/rewards.html' %}
+    {% include 'discuss/includes/detail.html' %}
 {% endblock content %}
+
 

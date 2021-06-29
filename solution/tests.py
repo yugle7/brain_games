@@ -7,7 +7,6 @@ class Data(BaseData):
     app = 'solution'
 
     solutions = []
-    talks = []
 
     def __init__(self):
         assert Person.objects.exists()
@@ -22,14 +21,14 @@ class Data(BaseData):
         Solution.objects.all().delete()
 
         self.create_solutions()
-        self.create_talks()
 
     def create_solutions(self):
         for _ in range(10):
             self.solutions.append(
                 Solution.objects.create(
                     puzzle=self.get_rand(self.puzzles),
-                    author=self.get_rand(self.persons),
+                    solver=self.get_rand(self.persons),
+                    checker=self.get_rand(self.persons),
                     text=self.get_text(),
                     talk=self.get_rand(self.talks, 'solution')
                 )

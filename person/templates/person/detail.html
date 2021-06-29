@@ -2,7 +2,6 @@
 
 {% block down %}
     {# значок назад #}
-    значок назад
 {% endblock down %}
 
 {% block name %}
@@ -17,7 +16,11 @@
 {% endblock up %}
 
 {% block content %}
-    {% include 'person/includes/filter.html' %}
-    {% include 'person/includes/list.html' %}
+    {% include 'person/includes/name.html' %}
+    {% include 'person/includes/contacts.html' %}
+    {% include 'person/includes/dates.html' %}
+    {% include 'person/includes/progress.html' %}
+    {% include 'person/includes/rewards.html' %}
 {% endblock content %}
+
 

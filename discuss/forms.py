@@ -13,7 +13,7 @@ class DiscussCreateForm(forms.ModelForm):
         }
 
 
-class DiscussListForm(forms.ModelForm):
+class DiscussListForm(forms.Form):
     class Meta:
         model = Discuss
         fields = ['author', 'topic', 'search']
