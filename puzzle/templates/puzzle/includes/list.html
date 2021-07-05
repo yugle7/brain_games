@@ -1,5 +1,7 @@
+{% include 'puzzle/includes/list/filter.html' %}
+
 <ul>
     {% for puzzle in puzzles %}
-        <li>{% include 'puzzle/includes/detail.html' %}</li>
+        <li>{% include 'puzzle/includes/list/detail.html' %}</li>
     {% endfor %}
 </ul>

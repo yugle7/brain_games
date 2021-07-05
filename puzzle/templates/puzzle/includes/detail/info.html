@@ -1,0 +1,8 @@
+<ul class="info">
+    <li>
+        {% include 'person/includes/link.html' with person=puzzle.author %}
+    </li>
+    <li>
+        {% include 'includes/date.html' with date=puzzle.edit_time %}
+    </li>
+</ul>

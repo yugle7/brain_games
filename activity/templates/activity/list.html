@@ -1,20 +1,9 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
-
 {% block title %}
-    {# активность #}
+    Активность
 {% endblock title %}
 
-{% block up %}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
-
 {% block content %}
-    {% include 'includes/form.html' %}
     {% include 'activity/includes/list.html' %}
 {% endblock content %}
-

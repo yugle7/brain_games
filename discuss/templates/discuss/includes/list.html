@@ -1,5 +1,7 @@
-<ul>
+{% include 'discuss/includes/list/filter.html' %}
+
+<ul class="discusses">
     {% for discuss in discusses %}
-        <li>{% include 'discuss/includes/detail.html' %}</li>
+        <li>{% include 'discuss/includes/list/detail.html' %}</li>
     {% endfor %}
 </ul>

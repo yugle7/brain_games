@@ -1,23 +1,17 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
+{% block title %}
+    Решение: {{ solution.puzzle.title }}
+{% endblock title %}
 
-{% block name %}
-    {# профиль #}
-    профиль
-{% endblock name %}
-
-{% block up %}
-    {# значок выхода из профиля, если я в своем #}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Решение
+{% endblock search %}
 
 {% block content %}
-    {% include 'puzzle/includes/detail.html' with puzzle=solution.puzzle %}
     {% include 'solution/includes/detail.html' %}
 {% endblock content %}
 
-
+{% block footer %}
+    {% include 'comment/includes/create.html' %}
+{% endblock footer %}

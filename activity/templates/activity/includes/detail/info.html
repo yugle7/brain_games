@@ -1,0 +1,9 @@
+<ul>
+    <li>
+        {% include 'person/includes/link.html' with person=activity.author %} ->
+        <a href="{{ activity.link }}">{{ activity.title }}</a>
+    </li>
+    <li>
+        {% include 'includes/age.html' with date=activity.date %}
+    </li>
+</ul>

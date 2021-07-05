@@ -1,5 +1,5 @@
-<ul>
-    {% for comment in talk.comment_set.all %}
-        <li>{% include 'comment/includes/detail.html' %}</li>
+<ul class="comments">
+    {% for comment in comments %}
+        <li>{% include 'comment/includes/list/detail.html' %}</li>
     {% endfor %}
 </ul>

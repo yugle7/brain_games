@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
-
 {% block title %}
-    {# задача #}
+    Добавить задачу
 {% endblock title %}
 
-{% block up %}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Задача
+{% endblock search %}
 
 {% block content %}
-    {% include 'puzzle/includes/offer.html' %}
+    {% include 'puzzle/includes/create.html' %}
 {% endblock content %}
 

@@ -1,3 +1,16 @@
+{% include 'puzzle/includes/list/detail.html' %}
+
+{% include 'solution/includes/detail/info.html' %}
+
 <div>
     {{ solution.text }}
 </div>
+
+
+<div>{{ solution.text }}</div>
+{% include 'comment/includes/list.html' with comments=solution.talk.comment_set.all %}
+
+{% include 'comment/includes/list.html' with comments=puzzle.public_talk.comment_set.all %}
+{% if solution.is_accepted %}
+    {% include 'comment/includes/list.html' with comments=puzzle.private_talk.comment_set.all %}
+{% endif %}

@@ -1,20 +1,14 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
-
 {% block title %}
-    {# задачи #}
+    Задачи
 {% endblock title %}
 
-{% block up %}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Задачи
+{% endblock search %}
 
 {% block content %}
-    {% include 'puzzle/includes/filter.html' %}
     {% include 'puzzle/includes/list.html' %}
 {% endblock content %}
 

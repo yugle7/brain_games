@@ -1,23 +1,14 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-    значок назад
-{% endblock down %}
+{% block title %}
+    Обсуждения
+{% endblock title %}
 
-{% block name %}
-    {# профиль #}
-    профиль
-{% endblock name %}
-
-{% block up %}
-    {# значок выхода из профиля, если я в своем #}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Обсуждения
+{% endblock search %}
 
 {% block content %}
-    {% include 'discuss/includes/filter.html' %}
     {% include 'discuss/includes/list.html' %}
 {% endblock content %}
 

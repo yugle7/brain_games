@@ -1,17 +1,24 @@
 from django.db import models
 
-from const import MAX_URL_LEN, MAX_TITLE_LEN
+from const import MAX_LINK_LEN, MAX_SLUG_LEN, MAX_TITLE_LEN
 from person.models import Person
 
-KIND = (
-    (1, 'discuss'),
-    (2, 'puzzle'),
-)
+
+class Tag(models.Model):
+    slug = models.SlugField(max_length=MAX_SLUG_LEN, unique=True, db_index=True)
+    name = models.CharField(max_length=MAX_TITLE_LEN, db_index=True, verbose_name="Название")
+
+    def __str__(self):
+        return f'#{self.slug}'
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
 
 class Activity(models.Model):
-    kind = models.SmallIntegerField(null=True, blank=True, choices=KIND, verbose_name="Тип")
-    link = models.CharField(blank=True, max_length=MAX_URL_LEN, verbose_name="Ссылка")
+    tags = models.ManyToManyField(Tag, null=True, blank=True, verbose_name="Теги")
+    link = models.CharField(blank=True, max_length=MAX_LINK_LEN, verbose_name="Ссылка")
 
     title = models.CharField(blank=True, max_length=MAX_TITLE_LEN, verbose_name="Заголовок")
     text = models.TextField(blank=True, verbose_name="Текст")

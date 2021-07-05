@@ -1,11 +1,6 @@
-<td>{% include 'person/includes/username.html' %}</td>
-<td class="info">
-    место
-</td>
-<td class="info">
-    {{ person.rating }}
-</td>
-<td class="info">
-    количество решенных задач
-</td>
-
+{% include 'person/includes/detail/name.html' %}
+{% include 'person/includes/detail/contacts.html' %}
+{% include 'person/includes/detail/dates.html' %}
+{% include 'person/includes/detail/progress.html' %}
+{% include 'person/includes/detail/rewards.html' %}
+{% include 'person/includes/detail/hists.html' %}

@@ -1,35 +1,19 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-    значок назад
-{% endblock down %}
+{% block title %}
+    Задача: {{ puzzle.title }}
+{% endblock title %}
 
-{% block name %}
-    {# задача #}
-    задача
-{% endblock name %}
-
-{% block up %}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Задача
+{% endblock search %}
 
 {% block content %}
-    {% include 'puzzle/includes/menu.html' %}
     {% include 'puzzle/includes/detail.html' %}
-
-    {% include 'solution/includes/detail.html' %}
-    {% include 'comment/includes/talk.html' with talk=solution.talk %}
-
-    {% include 'comment/includes/talk.html' with talk=puzzle.public_talk %}
-    {% if solution.is_accepted %}
-        {% include 'comment/includes/talk.html' with talk=puzzle.private_talk %}
-    {% endif %}
 {% endblock content %}
 
 {% block footer %}
-    {% include 'comment/includes/send.html' %}
+    {% include 'comment/includes/create.html' %}
 {% endblock footer %}
 
 

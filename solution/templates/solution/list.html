@@ -1,23 +1,15 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-    значок назад
-{% endblock down %}
 
-{% block name %}
-    {# профиль #}
-    профиль
-{% endblock name %}
+{% block title %}
+    Решения
+{% endblock title %}
 
-{% block up %}
-    {# значок выхода из профиля, если я в своем #}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Решения
+{% endblock search %}
 
 {% block content %}
-    {% include 'solution/includes/filter.html' %}
     {% include 'solution/includes/list.html' %}
 {% endblock content %}
 

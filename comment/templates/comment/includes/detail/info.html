@@ -1,0 +1,8 @@
+<ul>
+    <li>
+        {% include 'person/includes/link.html' with person=comment.author %}
+    </li>
+    <li>
+        {% include 'includes/time.html' with time=comment.create_time %}
+    </li>
+</ul>

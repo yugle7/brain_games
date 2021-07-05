@@ -1,0 +1,8 @@
+<ul>
+    <li>
+        {% include 'person/includes/link.html' with person=discuss.author %}
+    </li>
+    <li>
+        {% include 'includes/date.html' with date=discuss.update_time %}
+    </li>
+</ul>

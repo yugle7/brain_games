@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
-
 {% block title %}
-    {# игры разума #}
+    Вход
 {% endblock title %}
 
-{% block up %}
-    {# значок регистрации #}
-{% endblock up %}
+{% block search %}
+    Вход
+{% endblock search %}
 
 {% block content %}
-    {% include 'person/includes/login.html' %}
+    {% include 'person/includes/auth/login.html' %}
 {% endblock content %}

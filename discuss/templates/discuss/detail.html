@@ -1,22 +1,17 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
+{% block title %}
+    Обсуждение: {{ discuss.title }}
+{% endblock title %}
 
-{% block name %}
-    {# профиль #}
-    профиль
-{% endblock name %}
-
-{% block up %}
-    {# значок выхода из профиля, если я в своем #}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Обсуждение
+{% endblock search %}
 
 {% block content %}
     {% include 'discuss/includes/detail.html' %}
 {% endblock content %}
 
-
+{% block footer %}
+    {% include 'comment/includes/create.html' %}
+{% endblock footer %}

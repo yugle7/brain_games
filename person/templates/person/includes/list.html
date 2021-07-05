@@ -1,19 +1,9 @@
+{% include 'person/includes/list/filter.html' %}
+
 <table>
-    <thead>
-    <td>
-        {# значок пользователя #}
-    </td>
-    <td>
-        {# значок места #}
-    </td>
-    <td>
-        {# значок рейтинга #}
-    </td>
-    <td>
-        {# значок задач #}
-    </td>
-    </thead>
+    <thead>{% include 'person/includes/list/head.html' %}</thead>
+
     {% for person in persons %}
-        <tr>{% include 'person/includes/detail.html' %}</tr>
+        <tr>{% include 'person/includes/list/detail.html' %}</tr>
     {% endfor %}
 </table>

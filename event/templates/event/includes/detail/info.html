@@ -1,0 +1,4 @@
+{% include 'person/includes/link.html' with person=event.author %} ->
+<a href="{{ event.link }}">{{ event.title }}</a>
+
+{% include 'includes/age.html' with date=event.date %}

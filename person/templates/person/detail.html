@@ -1,26 +1,15 @@
 {% extends 'base.html' %}
 
-{% block down %}
-    {# значок назад #}
-{% endblock down %}
+{% block title %}
+    Профиль
+{% endblock title %}
 
-{% block name %}
-    {# профиль #}
-    профиль
-{% endblock name %}
-
-{% block up %}
-    {# значок выхода из профиля, если я в своем #}
-    {# значок профиля, если я в своем #}
-    {# значок входа, если я не залогинен #}
-{% endblock up %}
+{% block search %}
+    Профиль
+{% endblock search %}
 
 {% block content %}
-    {% include 'person/includes/name.html' %}
-    {% include 'person/includes/contacts.html' %}
-    {% include 'person/includes/dates.html' %}
-    {% include 'person/includes/progress.html' %}
-    {% include 'person/includes/rewards.html' %}
+    {% include 'person/includes/detail.html' %}
 {% endblock content %}
 
 

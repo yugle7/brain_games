@@ -1,5 +1,7 @@
+{% include 'solution/includes/list/filter.html' %}
+
 <ul>
     {% for solution in solutions %}
-        <li>{% include 'solution/includes/detail.html' %}</li>
+        <li>{% include 'solution/includes/list/detail.html' %}</li>
     {% endfor %}
 </ul>

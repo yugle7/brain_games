@@ -6,4 +6,4 @@ from .models import *
 class ActivityListForm(forms.ModelForm):
     class Meta:
         model = Activity
-        fields = ['kind', 'author', 'search']
+        fields = ['tags', 'author', 'search']

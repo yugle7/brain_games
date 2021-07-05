@@ -1,5 +1,2 @@
-<h2>{{ discuss.title }}</h2>
-<div>
-    {{ discuss.text }}
-</div>
-{% include 'discuss/includes/footer.html' %}
+{% include 'discuss/includes/list/detail.html' %}
+{% include 'comment/includes/list.html' with comments=discuss.talk.comment_set.all %}

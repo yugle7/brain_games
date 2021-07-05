@@ -12,55 +12,44 @@
 <body>
 <ul>
     <li class="left">
-        {% block left %}
-            {# оглавление #}
-            оглавление
-        {% endblock left %}
+        <h2 class="logo">Игры Разума</h2>
+        {% include 'page/includes/list.html' %}
     </li>
     <li class="center">
         <ul>
-            <li class="header">{% block header %}
-                {# поле поиска или навигация #}
-                поле поиска или навигация
-                <ul class="header">
-                    <li>
-                        {% block down %}
-                            {# значок меню или вернуться #}
-                            значок меню или вернуться
-                        {% endblock down %}
+            <li class="header">
+                <ul>
+                    <li class="back">
+                        {% block back %}
+                            {% include 'page/includes/icon.html' %}
+                        {% endblock back %}
                     </li>
-                    <li>
-                        {% block name %}
-                            {# название страницы с возможным поиском по нажатию #}
-                            название страницы с возможным поиском по нажатию
-                        {% endblock name %}
+                    <li class="search">
+                        {% block search %}
+                            Поиск
+                        {% endblock search %}
                     </li>
-                    <li>
-                        {% block up %}
-                            {# значок профиля или регистрации или логина #}
-                            значок профиля или регистрации или логина
-                        {% endblock up %}
+                    <li class="forward">
+                        {% block forward %}
+                            {% include 'person/includes/icon.html' %}
+                        {% endblock forward %}
                     </li>
                 </ul>
-            {% endblock header %}
             </li>
             <li class="content">
                 {% block content %}
-                    {# страница сайта #}
                 {% endblock content %}
             </li>
             <li class="footer">
                 {% block footer %}
-                    {# поле отправки сообщений #}
                 {% endblock footer %}
             </li>
         </ul>
     </li>
     <li class="right">
         {% block right %}
-            {# активность на сайте #}
-            активность на сайте
         {% endblock right %}
+        {% include 'event/includes/list.html' %}
     </li>
 </ul>
 </body>

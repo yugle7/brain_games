@@ -34,6 +34,7 @@ urlpatterns = [
     path('discuss/', include('discuss.urls')),
     path('poll/', include('poll.urls')),
     path('activity/', include('activity.urls')),
+    path('comment/', include('comment.urls')),
 ]
 
 if settings.DEBUG:

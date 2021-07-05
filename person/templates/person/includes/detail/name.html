@@ -1,0 +1,6 @@
+<h2 class="name {{ person.level.slug }}">{{ person.username }}</h2>
+<span class="info">{{ person.role.name }}</span>
+
+{% if person.first_name or person.last_name %}
+    <span class="main">{{ person.first_name }} {{ person.last_name }}</span>
+{% endif %}
